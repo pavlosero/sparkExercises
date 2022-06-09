@@ -1,0 +1,336 @@
+{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.sql.Row\nimport org.apache.spark.sql.types._\n\nval peopleRDD \u003d sc.makeRDD(Array(\n        Row(1L,\"Angela\", 30L, true),\n        Row(2L,\"Fabio\", 27L, false),\n        Row(3L,\"Antonio\", 19L, false),\n    )\n)\nval schema \u003d StructType( Array(\n    StructField(\"id\", LongType, true),\n    StructField(\"name\", StringType, true),\n    StructField(\"age\", LongType, true),\n    StructField(\"isStudent\", BooleanType, true)\n    )\n)\n\nval peopleDF \u003d spark.createDataFrame(peopleRDD, schema)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 15:03:15.484",
+      "progress": 0,
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.Row\nimport org.apache.spark.sql.types._\n\u001b[1m\u001b[34mpeopleRDD\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.rdd.RDD[org.apache.spark.sql.Row]\u001b[0m \u003d ParallelCollectionRDD[8] at makeRDD at \u003cconsole\u003e:36\n\u001b[1m\u001b[34mschema\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.types.StructType\u001b[0m \u003d StructType(StructField(id,LongType,true), StructField(name,StringType,true), StructField(age,LongType,true), StructField(isStudent,BooleanType,true))\n\u001b[1m\u001b[34mpeopleDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [id: bigint, name: string ... 2 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654520051839_435750650",
+      "id": "paragraph_1654520051839_435750650",
+      "dateCreated": "2022-06-06 14:54:11.840",
+      "dateStarted": "2022-06-06 15:03:15.489",
+      "dateFinished": "2022-06-06 15:03:15.849",
+      "status": "FINISHED"
+    },
+    {
+      "text": "peopleDF.show",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 15:03:17.822",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---+-------+---+---------+\n| id|   name|age|isStudent|\n+---+-------+---+---------+\n|  1| Angela| 30|     true|\n|  2|  Fabio| 27|    false|\n|  3|Antonio| 19|    false|\n+---+-------+---+---------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d5"
+            },
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d6"
+            },
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d7"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654520321139_957512393",
+      "id": "paragraph_1654520321139_957512393",
+      "dateCreated": "2022-06-06 14:58:41.140",
+      "dateStarted": "2022-06-06 15:03:17.827",
+      "dateFinished": "2022-06-06 15:03:18.331",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val animals \u003d Seq(\n    (\"Lion\", true),\n    (\"Rabbit\", false),\n    (\"Horse\", false),\n    (\"Cat\", true),\n)\n\nval animalsDF \u003d animals.toDF(\"name\",\"isPredator\")\nanimalsDF.show",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 15:06:36.461",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------+----------+\n|  name|isPredator|\n+------+----------+\n|  Lion|      true|\n|Rabbit|     false|\n| Horse|     false|\n|   Cat|      true|\n+------+----------+\n\n\u001b[1m\u001b[34manimals\u001b[0m: \u001b[1m\u001b[32mSeq[(String, Boolean)]\u001b[0m \u003d List((Lion,true), (Rabbit,false), (Horse,false), (Cat,true))\n\u001b[1m\u001b[34manimalsDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [name: string, isPredator: boolean]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654520511356_2024451427",
+      "id": "paragraph_1654520511356_2024451427",
+      "dateCreated": "2022-06-06 15:01:51.356",
+      "dateStarted": "2022-06-06 15:06:36.472",
+      "dateFinished": "2022-06-06 15:06:37.103",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val schemaCrypto \u003d StructType(Array(\n    StructField(\"type\", StringType, false),\n    StructField(\"id\", StringType, false),\n    StructField(\"subreddit.id\", StringType, false),\n    StructField(\"subreddit.name\", StringType, false),\n    StructField(\"subreddit.nsfw\", BooleanType, false),\n    StructField(\"created_utc\", LongType, false),\n    StructField(\"permalink\", StringType, false),\n    StructField(\"domain\", StringType, false),\n    StructField(\"url\", StringType, true),\n    StructField(\"selftext\", StringType, true),\n    StructField(\"title\", StringType, true),    \n    StructField(\"score\", IntegerType, false)\n))\n\nval cryptoText \u003d spark.read\n    .option(\"header\",\"true\")\n    .option(\"multiLine\", \"true\")\n    .option(\"unescapedQuoteHandling\", \"SKIP_VALUE\")\n    .schema(schemaCrypto)\n    .csv(\"Documents/Studying/Spark/Exercises/text.csv\")\ncryptoText.show()",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 15:51:42.130",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----+------+------------+---------------+--------------+-----------+--------------------+--------------------+----+--------------------+--------------------+-----+\n|type|    id|subreddit.id| subreddit.name|subreddit.nsfw|created_utc|           permalink|              domain| url|            selftext|               title|score|\n+----+------+------------+---------------+--------------+-----------+--------------------+--------------------+----+--------------------+--------------------+-----+\n|post|pfi1nw|       9e4pv|cryptomoonshots|         false| 1630454394|https://old.reddi...|self.cryptomoonshots|null|⚜️ 𝓟𝓻𝓸𝓶𝓮𝓽𝓱...|🌍Next Generation...|    3|\n|post|pfi0ci|       9e4pv|cryptomoonshots|         false| 1630454262|https://old.reddi...|self.cryptomoonshots|null|           [removed]|CryptoBlast | Jus...|    1|\n|post|pfhztt|       9e4pv|cryptomoonshots|         false| 1630454211|https://old.reddi...|self.cryptomoonshots|null|1️. WHAT IS GETAD...|🔹 getADAhere | 8...|    3|\n|post|pfhztr|       9e4pv|cryptomoonshots|         false| 1630454211|https://old.reddi...|self.cryptomoonshots|null|                null| we see you paid ...| null|\n|post|pfhz1z|       9e4pv|cryptomoonshots|         false| 1630454139|https://old.reddi...|self.cryptomoonshots|null|           [removed]|🔹 getADAhere 🔹 ...|    1|\n|post|pfhym2|       9e4pv|cryptomoonshots|         false| 1630454097|https://old.reddi...|self.cryptomoonshots|null|           [removed]|🔹 getADAhere | 8...|    1|\n|post|pfhxvq|       9e4pv|cryptomoonshots|         false| 1630454018|https://old.reddi...|self.cryptomoonshots|null|           [removed]|getADAhere 🔹 | 8...|    1|\n|post|pfhxjp|       9e4pv|cryptomoonshots|         false| 1630453983|https://old.reddi...|self.cryptomoonshots|null|           [removed]|getADAhere 🔹 | 8...|    1|\n|post|pfhxhz|       9e4pv|cryptomoonshots|         false| 1630453978|https://old.reddi...|self.cryptomoonshots|null|           [removed]|         Titan Token|    1|\n|post|pfhwqg|       9e4pv|cryptomoonshots|         false| 1630453903|https://old.reddi...|self.cryptomoonshots|null|           [removed]|🔹 getADAhere 🔹 ...|    1|\n|post|pfhvsk|       9e4pv|cryptomoonshots|         false| 1630453811|https://old.reddi...|self.cryptomoonshots|null|           [removed]|🔹 getADAhere 🔹 ...|    1|\n|post|pfhvcg|       9e4pv|cryptomoonshots|         false| 1630453767|https://old.reddi...|self.cryptomoonshots|null|           [removed]|      🐶DOGEVERSE 🐶|    1|\n|post|pfhvc5|       9e4pv|cryptomoonshots|         false| 1630453766|https://old.reddi...|self.cryptomoonshots|null|Val Car Rental ([...|ValRental.Club (V...|    1|\n|post|pfhu3f|       9e4pv|cryptomoonshots|         false| 1630453640|https://old.reddi...|self.cryptomoonshots|null|Hi everyone I wan...|💥 MrShillz Full-...|   30|\n|post|pfhry1|       9e4pv|cryptomoonshots|         false| 1630453429|https://old.reddi...|self.cryptomoonshots|null|FAIR LAUNCH ON SE...|$NFT - NoFUDToken...|    5|\n|post|pfhr6z|       9e4pv|cryptomoonshots|         false| 1630453357|https://old.reddi...|self.cryptomoonshots|null|           [removed]|Don’t sleep on th...|    1|\n|post|pfhq9x|       9e4pv|cryptomoonshots|         false| 1630453265|https://old.reddi...|self.cryptomoonshots|null| Earn ADA, with *...|KitADA 🍫- ADA re...|  864|\n|post|pfhppj|       9e4pv|cryptomoonshots|         false| 1630453209|https://old.reddi...|self.cryptomoonshots|null|           [removed]|Ultimate self min...|    1|\n|post|pfhk4h|       9e4pv|cryptomoonshots|         false| 1630452665|https://old.reddi...|self.cryptomoonshots|null|           [removed]|rADAr, early low ...|    9|\n|post|pfhhlh|       9e4pv|cryptomoonshots|         false| 1630452430|https://old.reddi...|self.cryptomoonshots|null|👋WELCOME TO👋\\n\\...|✅Buskercommunityc...|    3|\n+----+------+------------+---------------+--------------+-----------+--------------------+--------------------+----+--------------------+--------------------+-----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mschemaCrypto\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.types.StructType\u001b[0m \u003d StructType(StructField(type,StringType,false), StructField(id,StringType,false), StructField(subreddit.id,StringType,false), StructField(subreddit.name,StringType,false), StructField(subreddit.nsfw,BooleanType,false), StructField(created_utc,LongType,false), StructField(permalink,StringType,false), StructField(domain,StringType,false), StructField(url,StringType,true), StructField(selftext,StringType,true), StructField(title,StringType,true), StructField(score,IntegerType,false))\n\u001b[1m\u001b[34mcryptoText\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [type: string, id: string ... 10 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d30"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654520774182_128604153",
+      "id": "paragraph_1654520774182_128604153",
+      "dateCreated": "2022-06-06 15:06:14.182",
+      "dateStarted": "2022-06-06 15:51:42.135",
+      "dateFinished": "2022-06-06 15:51:42.478",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val jsonRDD \u003d spark.read\n    .option(\"inferSchema\", \"true\")\n    .option(\"multiLine\", \"true\")\n    .json(\"Documents/Studying/Spark/Exercises/example_2.json\")\n   \njsonRDD.printSchema\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 16:29:11.281",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- quiz: struct (nullable \u003d true)\n |    |-- maths: struct (nullable \u003d true)\n |    |    |-- q1: struct (nullable \u003d true)\n |    |    |    |-- answer: string (nullable \u003d true)\n |    |    |    |-- options: array (nullable \u003d true)\n |    |    |    |    |-- element: string (containsNull \u003d true)\n |    |    |    |-- question: string (nullable \u003d true)\n |    |    |-- q2: struct (nullable \u003d true)\n |    |    |    |-- answer: string (nullable \u003d true)\n |    |    |    |-- options: array (nullable \u003d true)\n |    |    |    |    |-- element: string (containsNull \u003d true)\n |    |    |    |-- question: string (nullable \u003d true)\n |    |-- sport: struct (nullable \u003d true)\n |    |    |-- q1: struct (nullable \u003d true)\n |    |    |    |-- answer: string (nullable \u003d true)\n |    |    |    |-- options: array (nullable \u003d true)\n |    |    |    |    |-- element: string (containsNull \u003d true)\n |    |    |    |-- question: string (nullable \u003d true)\n\n\u001b[1m\u001b[34mjsonRDD\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [quiz: struct\u003cmaths: struct\u003cq1: struct\u003canswer: string, options: array\u003cstring\u003e ... 1 more field\u003e, q2: struct\u003canswer: string, options: array\u003cstring\u003e ... 1 more field\u003e\u003e, sport: struct\u003cq1: struct\u003canswer: string, options: array\u003cstring\u003e ... 1 more field\u003e\u003e\u003e]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d33"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654521142297_1532285539",
+      "id": "paragraph_1654521142297_1532285539",
+      "dateCreated": "2022-06-06 15:12:22.297",
+      "dateStarted": "2022-06-06 16:29:11.285",
+      "dateFinished": "2022-06-06 16:29:11.633",
+      "status": "FINISHED"
+    },
+    {
+      "text": "jsonRDD.show()",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-06 16:29:30.360",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------------------+\n|                quiz|\n+--------------------+\n|{{{12, [10, 11, 1...|\n+--------------------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.17.7:4040/jobs/job?id\u003d34"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654521257429_1828386471",
+      "id": "paragraph_1654521257429_1828386471",
+      "dateCreated": "2022-06-06 15:14:17.430",
+      "dateStarted": "2022-06-06 16:29:30.363",
+      "dateFinished": "2022-06-06 16:29:30.696",
+      "status": "FINISHED"
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654525770362_1218058618",
+      "id": "paragraph_1654525770362_1218058618",
+      "dateCreated": "2022-06-06 16:29:30.362",
+      "status": "READY"
+    }
+  ],
+  "name": "exercises",
+  "id": "2H4H596XM",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

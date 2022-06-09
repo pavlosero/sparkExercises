@@ -1,0 +1,1016 @@
+{
+  "paragraphs": [
+    {
+      "text": "// VALUES\nval homePath \u003d \"Documents/Apps/Zeppelin/notebook/myProjects/RedditScorePrediction/Dataset/\"\nval filePosts \u003d \"reddtposts2.parquet\"",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:05.864",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mhomePath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d Documents/Apps/Zeppelin/notebook/myProjects/RedditScorePrediction/Dataset/\n\u001b[1m\u001b[34mfilePosts\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d reddtposts2.parquet\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654440823724_2105941269",
+      "id": "paragraph_1654440823724_2105941269",
+      "dateCreated": "2022-06-05 16:53:43.724",
+      "dateStarted": "2022-06-09 22:48:05.895",
+      "dateFinished": "2022-06-09 22:48:20.221",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val rawPosts \u003d spark.read.parquet(homePath+filePosts)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:20.315",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mrawPosts\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [type: string, id: string ... 10 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d0"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654441170498_110370745",
+      "id": "paragraph_1654441170498_110370745",
+      "dateCreated": "2022-06-05 16:59:30.498",
+      "dateStarted": "2022-06-09 22:48:20.319",
+      "dateFinished": "2022-06-09 22:48:22.759",
+      "status": "FINISHED"
+    },
+    {
+      "text": "rawPosts.printSchema",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:22.825",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- type: string (nullable \u003d true)\n |-- id: string (nullable \u003d true)\n |-- subreddit.id: string (nullable \u003d true)\n |-- subreddit.name: string (nullable \u003d true)\n |-- subreddit.nsfw: boolean (nullable \u003d true)\n |-- created_utc: long (nullable \u003d true)\n |-- permalink: string (nullable \u003d true)\n |-- domain: string (nullable \u003d true)\n |-- url: string (nullable \u003d true)\n |-- selftext: string (nullable \u003d true)\n |-- title: string (nullable \u003d true)\n |-- score: long (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654445489655_2076326122",
+      "id": "paragraph_1654445489655_2076326122",
+      "dateCreated": "2022-06-05 18:11:29.655",
+      "dateStarted": "2022-06-09 22:48:22.830",
+      "dateFinished": "2022-06-09 22:48:23.018",
+      "status": "FINISHED"
+    },
+    {
+      "text": "def filterBadChars(s: String): String \u003d s.filter(Character.UnicodeBlock.of(_) \u003d\u003d Character.UnicodeBlock.BASIC_LATIN)\nval filterBadCharsUDF \u003d udf(filterBadChars(_:String):String)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:23.029",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mfilterBadChars\u001b[0m: \u001b[1m\u001b[32m(s: String)String\u001b[0m\n\u001b[1m\u001b[34mfilterBadCharsUDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.expressions.UserDefinedFunction\u001b[0m \u003d SparkUserDefinedFunction($Lambda$3219/0x00000008413df040@782f89e8,StringType,List(Some(class[value[0]: string])),Some(class[value[0]: string]),None,true,true)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654790735276_120766360",
+      "id": "paragraph_1654790735276_120766360",
+      "dateCreated": "2022-06-09 18:05:35.276",
+      "dateStarted": "2022-06-09 22:48:23.033",
+      "dateFinished": "2022-06-09 22:48:23.813",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val posts \u003d rawPosts.select(\"created_utc\", \"selftext\", \"title\", \"score\")\n    .filter($\"selftext\" \u003d!\u003d \"[removed]\")\n    .withColumn(\"body\", concat($\"title\", $\"selftext\"))\n    .withColumn(\"body\", filterBadCharsUDF($\"body\"))\n    .withColumn(\"hour\", (from_unixtime($\"created_utc\", \"H\")).cast(\"Int\"))\n    .drop(\"created_utc\", \"selftext\", \"title\")\n    .cache()\n    \nposts.show",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:23.833",
+      "progress": 75,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-----+--------------------+----+\n|score|                body|hour|\n+-----+--------------------+----+\n|    3|Next Generation S...|   1|\n|    3| getADAhere | 8% ...|   1|\n|   11| DEEZcash  | $DZC...|   1|\n|    1|ValRental.Club (V...|   1|\n|   30| MrShillz Full-bl...|   1|\n|    5|$NFT - NoFUDToken...|   1|\n|  864|KitADA - ADA rewa...|   1|\n|    3|Buskercommunityco...|   1|\n|    1|Welcome To  HopCo...|   1|\n|  727| CommunityCake  F...|   1|\n|  710|BNBMax - 21% BNB ...|   1|\n|    1|josan coin is goi...|   1|\n|   10|rADAr- The Next B...|   1|\n|  835| [GLB] | Golden B...|   1|\n|    1|$ECOX  a brand ne...|   1|\n|    1|Why Moonpot is yo...|   1|\n|    1|Why Moonpot is yo...|   0|\n|    1| BABY JESUS Offic...|   0|\n|    2|||Guardian Wallet...|   0|\n|    2|Coinhunters.cc (#...|   0|\n+-----+--------------------+----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mposts\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m \u003d [score: bigint, body: string ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d1"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d2"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654441293695_320021471",
+      "id": "paragraph_1654441293695_320021471",
+      "dateCreated": "2022-06-05 17:01:33.696",
+      "dateStarted": "2022-06-09 22:48:23.839",
+      "dateFinished": "2022-06-09 22:48:37.021",
+      "status": "FINISHED"
+    },
+    {
+      "text": "posts.createOrReplaceTempView(\"posts\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:37.053",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654695956697_16964499",
+      "id": "paragraph_1654695956697_16964499",
+      "dateCreated": "2022-06-08 15:45:56.697",
+      "dateStarted": "2022-06-09 22:48:37.058",
+      "dateFinished": "2022-06-09 22:48:37.361",
+      "status": "FINISHED"
+    },
+    {
+      "title": "Mean of Scores per hour",
+      "text": "%spark.sql\nselect hour, mean(score) from posts group by hour",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:50:22.229",
+      "progress": 11,
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "hour": "string",
+                      "mean(score)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "stacked": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "hour",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "mean(score)",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "hour\tmean(score)\n12\t52.70392104561216\n22\t80.56146993318485\n1\t73.1512408759124\n13\t66.35266877894223\n16\t68.95958025650991\n6\t39.49718875502008\n3\t53.49928571428571\n20\t74.68789165150596\n5\t37.43417475728155\n19\t77.8238487457881\n15\t62.84090419806243\n17\t73.62677371172516\n9\t38.169072826435674\n4\t40.77610162763001\n8\t28.679135209334248\n23\t63.75557103064067\n7\t32.58764940239044\n10\t41.7721639656816\n21\t75.37990094923649\n11\t55.61139028475712\n14\t69.23757170172084\n2\t50.01903225806451\n0\t56.66180682114033\n18\t71.5766573295985\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d3"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d4"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654442650569_129731695",
+      "id": "paragraph_1654442650569_129731695",
+      "dateCreated": "2022-06-05 17:24:10.570",
+      "dateStarted": "2022-06-09 22:48:37.461",
+      "dateFinished": "2022-06-09 22:48:38.473",
+      "status": "FINISHED"
+    },
+    {
+      "title": "Length of post vs score",
+      "text": "%spark.sql\nselect round(score/100)*100 as deci_scores, mean(length(body)) as mean_body_length from posts group by deci_scores order by deci_scores",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:50:06.573",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "deci_scores": "string",
+                      "mean_body_length": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "deci_scores",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "mean_body_length",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "deci_scores\tmean_body_length\n0.0\t1374.7082587603618\n100.0\t1537.5873983739837\n200.0\t1832.3878562577447\n300.0\t1771.9063231850116\n400.0\t2058.597701149425\n500.0\t1663.4011976047905\n600.0\t1459.137339055794\n700.0\t1436.9515923566878\n800.0\t1604.1009389671362\n900.0\t1624.2249488752557\n1000.0\t1721.2625329815303\n1100.0\t1745.1627906976744\n1200.0\t2006.7058823529412\n1300.0\t1756.7384615384615\n1400.0\t1520.5192307692307\n1500.0\t1905.3972602739725\n1600.0\t2407.5757575757575\n1700.0\t2047.9\n1800.0\t1650.607142857143\n1900.0\t1919.4545454545455\n2000.0\t1567.3734939759036\n2100.0\t1837.1333333333334\n2200.0\t2059.75\n2300.0\t1397.5714285714287\n2400.0\t1273.1538461538462\n2500.0\t1944.0625\n2600.0\t1964.0\n2700.0\t1807.5\n2800.0\t1799.2941176470588\n2900.0\t1338.5\n3000.0\t2094.7818181818184\n3100.0\t1665.4166666666667\n3200.0\t2384.3333333333335\n3300.0\t3301.1111111111113\n3400.0\t2741.4\n3500.0\t2181.8\n3600.0\t1444.4285714285713\n3700.0\t1436.5\n3800.0\t1618.2857142857142\n3900.0\t1691.0\n4000.0\t2262.9142857142856\n4100.0\t2342.076923076923\n4200.0\t1879.111111111111\n4300.0\t1969.5\n4400.0\t1768.6\n4500.0\t1305.5\n4600.0\t1263.3333333333333\n4700.0\t2793.0\n4800.0\t1387.0\n4900.0\t1422.4\n5000.0\t2595.0\n5100.0\t1590.0\n5300.0\t550.0\n5900.0\t11481.0\n6200.0\t1702.3333333333333\n6300.0\t4625.0\n6500.0\t486.0\n6600.0\t1263.0\n6800.0\t527.0\n6900.0\t690.0\n7100.0\t622.0\n7700.0\t4211.0\n7900.0\t482.0\n8300.0\t2433.0\n8800.0\t828.0\n9400.0\t488.0\n10200.0\t1552.0\n10900.0\t883.0\n11000.0\t5268.0\n12600.0\t316.0\n12800.0\t472.0\n19000.0\t487.0\n25500.0\t839.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d5"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d6"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654696260307_1933934607",
+      "id": "paragraph_1654696260307_1933934607",
+      "dateCreated": "2022-06-08 15:51:00.308",
+      "dateStarted": "2022-06-09 22:48:38.565",
+      "dateFinished": "2022-06-09 22:48:39.729",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val Array(training, test) \u003d posts.randomSplit(Array(0.9, 0.1), seed \u003d 12345)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:39.766",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mtraining\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m \u003d [score: bigint, body: string ... 1 more field]\n\u001b[1m\u001b[34mtest\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m \u003d [score: bigint, body: string ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654792986290_764975629",
+      "id": "paragraph_1654792986290_764975629",
+      "dateCreated": "2022-06-09 18:43:06.290",
+      "dateStarted": "2022-06-09 22:48:39.772",
+      "dateFinished": "2022-06-09 22:48:40.304",
+      "status": "FINISHED"
+    },
+    {
+      "title": "ML PIPELINE",
+      "text": "import org.apache.spark.ml.feature.{StopWordsRemover, Tokenizer, VectorAssembler, HashingTF, OneHotEncoder}\nimport org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.regression.DecisionTreeRegressor\n\nval tokenizer \u003d new Tokenizer().setInputCol(\"body\").setOutputCol(\"words\")\n\n\nval remover \u003d new StopWordsRemover()\n  .setInputCol(\"words\")\n  .setOutputCol(\"words_nonstop\")\n  \nval hashingTF \u003d new HashingTF()\n  .setInputCol(\"words_nonstop\").setOutputCol(\"textFeatures\").setNumFeatures(4096)\n  \nval oneHotEncoder \u003d new OneHotEncoder().setInputCol(\"hour\").setOutputCol(\"encodedHour\")\n\nval assembler \u003d new VectorAssembler().setInputCols(\n        Array(\"encodedHour\", \"textFeatures\"))\n    .setOutputCol(\"features\")\n    \nval dt \u003d new DecisionTreeRegressor()\n  .setLabelCol(\"score\")\n  .setFeaturesCol(\"features\")\n  \n  \nval pipeline \u003d new Pipeline().setStages(Array(tokenizer, remover, hashingTF, oneHotEncoder, assembler, dt))",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:40.372",
+      "progress": 0,
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.ml.feature.{StopWordsRemover, Tokenizer, VectorAssembler, HashingTF, OneHotEncoder}\nimport org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.regression.DecisionTreeRegressor\n\u001b[1m\u001b[34mtokenizer\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature.Tokenizer\u001b[0m \u003d tok_086a88ffb03c\n\u001b[1m\u001b[34mremover\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature.StopWordsRemover\u001b[0m \u003d StopWordsRemover: uid\u003dstopWords_2b5ea371af1d, numStopWords\u003d181, locale\u003den_US, caseSensitive\u003dfalse\n\u001b[1m\u001b[34mhashingTF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature.HashingTF\u001b[0m \u003d HashingTF: uid\u003dhashingTF_58550da0eaff, binary\u003dfalse, numFeatures\u003d4096\n\u001b[1m\u001b[34moneHotEncoder\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature.OneHotEncoder\u001b[0m \u003d oneHotEncoder_9c8763467217\n\u001b[1m\u001b[34massembler\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature...\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654527089510_31303463",
+      "id": "paragraph_1654527089510_31303463",
+      "dateCreated": "2022-06-06 16:51:29.511",
+      "dateStarted": "2022-06-09 22:48:40.375",
+      "dateFinished": "2022-06-09 22:48:40.862",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val model \u003d pipeline.fit(training)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:48:40.876",
+      "progress": 43,
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mmodel\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.PipelineModel\u001b[0m \u003d pipeline_fb16248835ce\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d7"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d8"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d9"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d10"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d11"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d12"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d13"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d14"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d15"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d16"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654791221458_198632464",
+      "id": "paragraph_1654791221458_198632464",
+      "dateCreated": "2022-06-09 18:13:41.458",
+      "dateStarted": "2022-06-09 22:48:40.879",
+      "dateFinished": "2022-06-09 22:50:04.030",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val predictions \u003d model.transform(test)",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:50:04.088",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mpredictions\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [score: bigint, body: string ... 7 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654805921508_1556566770",
+      "id": "paragraph_1654805921508_1556566770",
+      "dateCreated": "2022-06-09 22:18:41.508",
+      "dateStarted": "2022-06-09 22:50:04.093",
+      "dateFinished": "2022-06-09 22:50:04.454",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val results \u003d predictions.select(\"score\", \"prediction\").withColumn(\"id\",monotonically_increasing_id())",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:50:04.491",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mresults\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [score: bigint, prediction: double ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654806070622_13350267",
+      "id": "paragraph_1654806070622_13350267",
+      "dateCreated": "2022-06-09 22:21:10.623",
+      "dateStarted": "2022-06-09 22:50:04.493",
+      "dateFinished": "2022-06-09 22:50:04.765",
+      "status": "FINISHED"
+    },
+    {
+      "text": "results.createOrReplaceTempView(\"results\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:50:04.793",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654806085431_374408802",
+      "id": "paragraph_1654806085431_374408802",
+      "dateCreated": "2022-06-09 22:21:25.431",
+      "dateStarted": "2022-06-09 22:50:04.797",
+      "dateFinished": "2022-06-09 22:50:05.024",
+      "status": "FINISHED"
+    },
+    {
+      "title": "Prediction vs True Plot",
+      "text": "%spark.sql\nselect * from results",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:56:38.367",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "score": "string",
+                      "prediction": "string",
+                      "id": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "hide",
+                  "isDateFormat": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "style": "stack"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "id",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "prediction",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "score",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "score\tprediction\tid\n0\t176.12694993314514\t25769803776\n0\t176.12694993314514\t25769803777\n0\t33.48130266853933\t25769803778\n0\t19.55236921698219\t25769803779\n0\t33.48130266853933\t25769803780\n0\t33.48130266853933\t25769803781\n0\t33.48130266853933\t25769803782\n0\t33.48130266853933\t25769803783\n0\t33.48130266853933\t25769803784\n0\t33.48130266853933\t25769803785\n0\t33.48130266853933\t25769803786\n0\t176.12694993314514\t25769803787\n0\t120.22741088698535\t25769803788\n0\t176.12694993314514\t25769803789\n0\t33.48130266853933\t25769803790\n0\t33.48130266853933\t25769803791\n0\t176.12694993314514\t25769803792\n0\t176.12694993314514\t25769803793\n0\t33.48130266853933\t25769803794\n0\t120.22741088698535\t25769803795\n0\t19.55236921698219\t25769803796\n0\t33.48130266853933\t25769803797\n0\t33.48130266853933\t25769803798\n0\t33.48130266853933\t25769803799\n0\t33.48130266853933\t25769803800\n0\t33.48130266853933\t25769803801\n0\t176.12694993314514\t25769803802\n0\t33.48130266853933\t25769803803\n0\t33.48130266853933\t25769803804\n0\t33.48130266853933\t25769803805\n0\t33.48130266853933\t25769803806\n0\t33.48130266853933\t25769803807\n0\t19.55236921698219\t25769803808\n0\t120.22741088698535\t25769803809\n0\t33.48130266853933\t25769803810\n0\t19.55236921698219\t25769803811\n0\t33.48130266853933\t25769803812\n0\t33.48130266853933\t25769803813\n0\t33.48130266853933\t25769803814\n0\t33.48130266853933\t25769803815\n0\t33.48130266853933\t25769803816\n0\t33.48130266853933\t25769803817\n0\t33.48130266853933\t25769803818\n0\t33.48130266853933\t25769803819\n0\t33.48130266853933\t25769803820\n0\t33.48130266853933\t25769803821\n0\t19.55236921698219\t25769803822\n0\t33.48130266853933\t25769803823\n0\t33.48130266853933\t25769803824\n0\t120.22741088698535\t25769803825\n0\t176.12694993314514\t25769803826\n0\t176.12694993314514\t25769803827\n0\t176.12694993314514\t25769803828\n0\t176.12694993314514\t25769803829\n0\t176.12694993314514\t25769803830\n0\t33.48130266853933\t25769803831\n0\t33.48130266853933\t25769803832\n0\t176.12694993314514\t25769803833\n0\t176.12694993314514\t25769803834\n0\t33.48130266853933\t25769803835\n0\t33.48130266853933\t25769803836\n0\t176.12694993314514\t25769803837\n0\t33.48130266853933\t25769803838\n0\t33.48130266853933\t25769803839\n0\t33.48130266853933\t25769803840\n0\t33.48130266853933\t25769803841\n0\t33.48130266853933\t25769803842\n0\t33.48130266853933\t25769803843\n0\t33.48130266853933\t25769803844\n0\t33.48130266853933\t25769803845\n0\t33.48130266853933\t25769803846\n0\t33.48130266853933\t25769803847\n0\t33.48130266853933\t25769803848\n0\t33.48130266853933\t25769803849\n0\t33.48130266853933\t25769803850\n0\t33.48130266853933\t25769803851\n0\t33.48130266853933\t25769803852\n0\t33.48130266853933\t25769803853\n0\t19.55236921698219\t25769803854\n0\t33.48130266853933\t25769803855\n0\t33.48130266853933\t25769803856\n0\t33.48130266853933\t25769803857\n0\t33.48130266853933\t25769803858\n0\t33.48130266853933\t25769803859\n0\t33.48130266853933\t25769803860\n0\t33.48130266853933\t25769803861\n0\t33.48130266853933\t25769803862\n0\t33.48130266853933\t25769803863\n0\t33.48130266853933\t25769803864\n0\t33.48130266853933\t25769803865\n0\t33.48130266853933\t25769803866\n0\t33.48130266853933\t25769803867\n0\t33.48130266853933\t25769803868\n0\t33.48130266853933\t25769803869\n0\t33.48130266853933\t25769803870\n0\t120.22741088698535\t25769803871\n0\t33.48130266853933\t25769803872\n0\t33.48130266853933\t25769803873\n0\t33.48130266853933\t25769803874\n0\t33.48130266853933\t25769803875\n0\t33.48130266853933\t25769803876\n0\t33.48130266853933\t25769803877\n0\t33.48130266853933\t25769803878\n0\t33.48130266853933\t25769803879\n0\t33.48130266853933\t25769803880\n0\t33.48130266853933\t25769803881\n0\t33.48130266853933\t25769803882\n0\t33.48130266853933\t25769803883\n0\t33.48130266853933\t25769803884\n0\t33.48130266853933\t25769803885\n0\t33.48130266853933\t25769803886\n0\t33.48130266853933\t25769803887\n0\t33.48130266853933\t25769803888\n0\t33.48130266853933\t25769803889\n0\t33.48130266853933\t25769803890\n0\t33.48130266853933\t25769803891\n0\t33.48130266853933\t25769803892\n0\t33.48130266853933\t25769803893\n0\t33.48130266853933\t25769803894\n0\t33.48130266853933\t25769803895\n0\t33.48130266853933\t25769803896\n0\t33.48130266853933\t25769803897\n0\t33.48130266853933\t25769803898\n0\t33.48130266853933\t25769803899\n0\t176.12694993314514\t25769803900\n0\t33.48130266853933\t25769803901\n0\t33.48130266853933\t25769803902\n0\t33.48130266853933\t25769803903\n0\t33.48130266853933\t25769803904\n0\t33.48130266853933\t25769803905\n0\t33.48130266853933\t25769803906\n0\t33.48130266853933\t25769803907\n0\t19.55236921698219\t25769803908\n0\t33.48130266853933\t25769803909\n0\t33.48130266853933\t25769803910\n0\t33.48130266853933\t25769803911\n0\t33.48130266853933\t25769803912\n0\t33.48130266853933\t25769803913\n0\t33.48130266853933\t25769803914\n0\t33.48130266853933\t25769803915\n0\t33.48130266853933\t25769803916\n0\t33.48130266853933\t25769803917\n0\t33.48130266853933\t25769803918\n0\t33.48130266853933\t25769803919\n0\t33.48130266853933\t25769803920\n0\t120.22741088698535\t25769803921\n0\t33.48130266853933\t25769803922\n0\t33.48130266853933\t25769803923\n0\t33.48130266853933\t25769803924\n0\t33.48130266853933\t25769803925\n0\t33.48130266853933\t25769803926\n0\t33.48130266853933\t25769803927\n0\t33.48130266853933\t25769803928\n0\t33.48130266853933\t25769803929\n0\t33.48130266853933\t25769803930\n0\t33.48130266853933\t25769803931\n0\t33.48130266853933\t25769803932\n0\t33.48130266853933\t25769803933\n0\t33.48130266853933\t25769803934\n0\t33.48130266853933\t25769803935\n0\t33.48130266853933\t25769803936\n0\t33.48130266853933\t25769803937\n0\t33.48130266853933\t25769803938\n0\t176.12694993314514\t25769803939\n0\t33.48130266853933\t25769803940\n0\t33.48130266853933\t25769803941\n0\t33.48130266853933\t25769803942\n0\t176.12694993314514\t25769803943\n0\t33.48130266853933\t25769803944\n0\t33.48130266853933\t25769803945\n0\t33.48130266853933\t25769803946\n0\t33.48130266853933\t25769803947\n0\t33.48130266853933\t25769803948\n0\t33.48130266853933\t25769803949\n0\t33.48130266853933\t25769803950\n0\t33.48130266853933\t25769803951\n0\t33.48130266853933\t25769803952\n0\t33.48130266853933\t25769803953\n0\t33.48130266853933\t25769803954\n0\t33.48130266853933\t25769803955\n0\t19.55236921698219\t25769803956\n0\t33.48130266853933\t25769803957\n0\t33.48130266853933\t25769803958\n0\t33.48130266853933\t25769803959\n0\t33.48130266853933\t25769803960\n0\t33.48130266853933\t25769803961\n0\t33.48130266853933\t25769803962\n0\t33.48130266853933\t25769803963\n0\t33.48130266853933\t25769803964\n0\t33.48130266853933\t25769803965\n0\t33.48130266853933\t25769803966\n0\t33.48130266853933\t25769803967\n0\t33.48130266853933\t25769803968\n0\t120.22741088698535\t25769803969\n0\t33.48130266853933\t25769803970\n0\t33.48130266853933\t25769803971\n0\t33.48130266853933\t25769803972\n0\t33.48130266853933\t25769803973\n0\t33.48130266853933\t25769803974\n0\t33.48130266853933\t25769803975\n0\t33.48130266853933\t25769803976\n0\t33.48130266853933\t25769803977\n0\t33.48130266853933\t25769803978\n0\t33.48130266853933\t25769803979\n0\t33.48130266853933\t25769803980\n0\t33.48130266853933\t25769803981\n0\t33.48130266853933\t25769803982\n0\t33.48130266853933\t25769803983\n0\t33.48130266853933\t25769803984\n0\t33.48130266853933\t25769803985\n0\t33.48130266853933\t25769803986\n0\t33.48130266853933\t25769803987\n0\t33.48130266853933\t25769803988\n0\t33.48130266853933\t25769803989\n0\t33.48130266853933\t25769803990\n0\t33.48130266853933\t25769803991\n0\t33.48130266853933\t25769803992\n0\t33.48130266853933\t25769803993\n0\t33.48130266853933\t25769803994\n0\t33.48130266853933\t25769803995\n0\t33.48130266853933\t25769803996\n0\t33.48130266853933\t25769803997\n0\t176.12694993314514\t25769803998\n0\t33.48130266853933\t25769803999\n0\t176.12694993314514\t25769804000\n0\t33.48130266853933\t25769804001\n0\t33.48130266853933\t25769804002\n0\t176.12694993314514\t25769804003\n0\t33.48130266853933\t25769804004\n0\t33.48130266853933\t25769804005\n0\t33.48130266853933\t25769804006\n0\t33.48130266853933\t25769804007\n0\t33.48130266853933\t25769804008\n0\t33.48130266853933\t25769804009\n0\t33.48130266853933\t25769804010\n0\t33.48130266853933\t25769804011\n0\t120.22741088698535\t25769804012\n0\t33.48130266853933\t25769804013\n0\t176.12694993314514\t25769804014\n0\t33.48130266853933\t25769804015\n0\t33.48130266853933\t25769804016\n0\t176.12694993314514\t25769804017\n0\t176.12694993314514\t25769804018\n0\t33.48130266853933\t25769804019\n0\t33.48130266853933\t25769804020\n0\t33.48130266853933\t25769804021\n0\t33.48130266853933\t25769804022\n0\t33.48130266853933\t25769804023\n0\t19.55236921698219\t25769804024\n0\t33.48130266853933\t25769804025\n0\t33.48130266853933\t25769804026\n0\t33.48130266853933\t25769804027\n0\t33.48130266853933\t25769804028\n0\t33.48130266853933\t25769804029\n0\t33.48130266853933\t25769804030\n0\t33.48130266853933\t25769804031\n0\t33.48130266853933\t25769804032\n0\t33.48130266853933\t25769804033\n0\t33.48130266853933\t25769804034\n0\t33.48130266853933\t25769804035\n0\t33.48130266853933\t25769804036\n0\t33.48130266853933\t25769804037\n0\t33.48130266853933\t25769804038\n0\t33.48130266853933\t25769804039\n0\t33.48130266853933\t25769804040\n0\t33.48130266853933\t25769804041\n0\t33.48130266853933\t25769804042\n0\t33.48130266853933\t25769804043\n0\t33.48130266853933\t25769804044\n0\t33.48130266853933\t25769804045\n0\t33.48130266853933\t25769804046\n0\t33.48130266853933\t25769804047\n0\t33.48130266853933\t25769804048\n0\t33.48130266853933\t25769804049\n0\t33.48130266853933\t25769804050\n0\t33.48130266853933\t25769804051\n0\t33.48130266853933\t25769804052\n0\t33.48130266853933\t25769804053\n0\t33.48130266853933\t25769804054\n0\t120.22741088698535\t25769804055\n0\t33.48130266853933\t25769804056\n0\t33.48130266853933\t25769804057\n0\t33.48130266853933\t25769804058\n0\t33.48130266853933\t25769804059\n0\t33.48130266853933\t25769804060\n0\t33.48130266853933\t25769804061\n0\t33.48130266853933\t25769804062\n0\t33.48130266853933\t25769804063\n0\t33.48130266853933\t25769804064\n0\t33.48130266853933\t25769804065\n0\t33.48130266853933\t25769804066\n0\t33.48130266853933\t25769804067\n0\t33.48130266853933\t25769804068\n0\t33.48130266853933\t25769804069\n0\t33.48130266853933\t25769804070\n0\t33.48130266853933\t25769804071\n0\t33.48130266853933\t25769804072\n0\t33.48130266853933\t25769804073\n0\t33.48130266853933\t25769804074\n0\t33.48130266853933\t25769804075\n0\t33.48130266853933\t25769804076\n0\t33.48130266853933\t25769804077\n0\t33.48130266853933\t25769804078\n0\t33.48130266853933\t25769804079\n0\t33.48130266853933\t25769804080\n0\t33.48130266853933\t25769804081\n0\t33.48130266853933\t25769804082\n0\t33.48130266853933\t25769804083\n0\t33.48130266853933\t25769804084\n0\t176.12694993314514\t25769804085\n0\t33.48130266853933\t25769804086\n0\t33.48130266853933\t25769804087\n0\t33.48130266853933\t25769804088\n0\t33.48130266853933\t25769804089\n0\t33.48130266853933\t25769804090\n0\t33.48130266853933\t25769804091\n0\t33.48130266853933\t25769804092\n0\t33.48130266853933\t25769804093\n0\t33.48130266853933\t25769804094\n0\t33.48130266853933\t25769804095\n0\t33.48130266853933\t25769804096\n0\t33.48130266853933\t25769804097\n0\t33.48130266853933\t25769804098\n0\t176.12694993314514\t25769804099\n0\t33.48130266853933\t25769804100\n0\t33.48130266853933\t25769804101\n0\t33.48130266853933\t25769804102\n0\t33.48130266853933\t25769804103\n0\t33.48130266853933\t25769804104\n0\t33.48130266853933\t25769804105\n0\t33.48130266853933\t25769804106\n0\t33.48130266853933\t25769804107\n0\t19.55236921698219\t25769804108\n0\t33.48130266853933\t25769804109\n0\t33.48130266853933\t25769804110\n0\t33.48130266853933\t25769804111\n0\t33.48130266853933\t25769804112\n0\t33.48130266853933\t25769804113\n0\t33.48130266853933\t25769804114\n0\t33.48130266853933\t25769804115\n0\t33.48130266853933\t25769804116\n0\t33.48130266853933\t25769804117\n0\t33.48130266853933\t25769804118\n0\t33.48130266853933\t25769804119\n0\t33.48130266853933\t25769804120\n0\t33.48130266853933\t25769804121\n0\t33.48130266853933\t25769804122\n0\t33.48130266853933\t25769804123\n0\t33.48130266853933\t25769804124\n0\t33.48130266853933\t25769804125\n0\t33.48130266853933\t25769804126\n0\t33.48130266853933\t25769804127\n0\t33.48130266853933\t25769804128\n0\t33.48130266853933\t25769804129\n0\t33.48130266853933\t25769804130\n0\t33.48130266853933\t25769804131\n0\t33.48130266853933\t25769804132\n0\t33.48130266853933\t25769804133\n0\t33.48130266853933\t25769804134\n0\t33.48130266853933\t25769804135\n0\t33.48130266853933\t25769804136\n0\t176.12694993314514\t25769804137\n0\t176.12694993314514\t25769804138\n0\t33.48130266853933\t25769804139\n0\t33.48130266853933\t25769804140\n0\t33.48130266853933\t25769804141\n0\t33.48130266853933\t25769804142\n0\t19.55236921698219\t25769804143\n0\t33.48130266853933\t25769804144\n0\t33.48130266853933\t25769804145\n0\t33.48130266853933\t25769804146\n0\t33.48130266853933\t25769804147\n0\t33.48130266853933\t25769804148\n0\t33.48130266853933\t25769804149\n0\t33.48130266853933\t25769804150\n0\t33.48130266853933\t25769804151\n0\t33.48130266853933\t25769804152\n0\t33.48130266853933\t25769804153\n0\t19.55236921698219\t25769804154\n0\t19.55236921698219\t25769804155\n0\t19.55236921698219\t25769804156\n0\t19.55236921698219\t25769804157\n0\t19.55236921698219\t25769804158\n0\t19.55236921698219\t25769804159\n0\t19.55236921698219\t25769804160\n0\t19.55236921698219\t25769804161\n0\t19.55236921698219\t25769804162\n0\t19.55236921698219\t25769804163\n0\t19.55236921698219\t25769804164\n0\t33.48130266853933\t25769804165\n0\t33.48130266853933\t25769804166\n0\t33.48130266853933\t25769804167\n0\t33.48130266853933\t25769804168\n0\t33.48130266853933\t25769804169\n0\t33.48130266853933\t25769804170\n0\t33.48130266853933\t25769804171\n0\t33.48130266853933\t25769804172\n0\t33.48130266853933\t25769804173\n0\t33.48130266853933\t25769804174\n0\t33.48130266853933\t25769804175\n0\t33.48130266853933\t25769804176\n0\t19.55236921698219\t25769804177\n0\t33.48130266853933\t25769804178\n0\t33.48130266853933\t25769804179\n0\t33.48130266853933\t25769804180\n0\t33.48130266853933\t25769804181\n0\t33.48130266853933\t25769804182\n0\t33.48130266853933\t25769804183\n0\t33.48130266853933\t25769804184\n0\t33.48130266853933\t25769804185\n0\t33.48130266853933\t25769804186\n0\t33.48130266853933\t25769804187\n0\t33.48130266853933\t25769804188\n0\t33.48130266853933\t25769804189\n0\t33.48130266853933\t25769804190\n0\t33.48130266853933\t25769804191\n0\t33.48130266853933\t25769804192\n0\t33.48130266853933\t25769804193\n0\t33.48130266853933\t25769804194\n0\t120.22741088698535\t25769804195\n0\t33.48130266853933\t25769804196\n0\t33.48130266853933\t25769804197\n0\t33.48130266853933\t25769804198\n0\t33.48130266853933\t25769804199\n0\t176.12694993314514\t25769804200\n0\t33.48130266853933\t25769804201\n0\t33.48130266853933\t25769804202\n0\t33.48130266853933\t25769804203\n0\t33.48130266853933\t25769804204\n0\t33.48130266853933\t25769804205\n0\t33.48130266853933\t25769804206\n1\t176.12694993314514\t25769804207\n1\t33.48130266853933\t25769804208\n1\t33.48130266853933\t25769804209\n1\t33.48130266853933\t25769804210\n1\t33.48130266853933\t25769804211\n1\t33.48130266853933\t25769804212\n1\t33.48130266853933\t25769804213\n1\t33.48130266853933\t25769804214\n1\t33.48130266853933\t25769804215\n1\t33.48130266853933\t25769804216\n1\t33.48130266853933\t25769804217\n1\t33.48130266853933\t25769804218\n1\t176.12694993314514\t25769804219\n1\t176.12694993314514\t25769804220\n1\t176.12694993314514\t25769804221\n1\t33.48130266853933\t25769804222\n1\t33.48130266853933\t25769804223\n1\t33.48130266853933\t25769804224\n1\t33.48130266853933\t25769804225\n1\t176.12694993314514\t25769804226\n1\t176.12694993314514\t25769804227\n1\t176.12694993314514\t25769804228\n1\t33.48130266853933\t25769804229\n1\t33.48130266853933\t25769804230\n1\t176.12694993314514\t25769804231\n1\t33.48130266853933\t25769804232\n1\t120.22741088698535\t25769804233\n1\t33.48130266853933\t25769804234\n1\t33.48130266853933\t25769804235\n1\t33.48130266853933\t25769804236\n1\t33.48130266853933\t25769804237\n1\t33.48130266853933\t25769804238\n1\t33.48130266853933\t25769804239\n1\t33.48130266853933\t25769804240\n1\t33.48130266853933\t25769804241\n1\t33.48130266853933\t25769804242\n1\t33.48130266853933\t25769804243\n1\t33.48130266853933\t25769804244\n1\t33.48130266853933\t25769804245\n1\t33.48130266853933\t25769804246\n1\t33.48130266853933\t25769804247\n1\t33.48130266853933\t25769804248\n1\t176.12694993314514\t25769804249\n1\t19.55236921698219\t25769804250\n1\t19.55236921698219\t25769804251\n1\t19.55236921698219\t25769804252\n1\t19.55236921698219\t25769804253\n1\t19.55236921698219\t25769804254\n1\t19.55236921698219\t25769804255\n1\t19.55236921698219\t25769804256\n1\t19.55236921698219\t25769804257\n1\t19.55236921698219\t25769804258\n1\t19.55236921698219\t25769804259\n1\t19.55236921698219\t25769804260\n1\t33.48130266853933\t25769804261\n1\t19.55236921698219\t25769804262\n1\t19.55236921698219\t25769804263\n1\t19.55236921698219\t25769804264\n1\t19.55236921698219\t25769804265\n1\t33.48130266853933\t25769804266\n1\t33.48130266853933\t25769804267\n1\t33.48130266853933\t25769804268\n1\t33.48130266853933\t25769804269\n1\t33.48130266853933\t25769804270\n1\t33.48130266853933\t25769804271\n1\t33.48130266853933\t25769804272\n1\t33.48130266853933\t25769804273\n1\t33.48130266853933\t25769804274\n1\t33.48130266853933\t25769804275\n1\t33.48130266853933\t25769804276\n1\t33.48130266853933\t25769804277\n1\t33.48130266853933\t25769804278\n1\t33.48130266853933\t25769804279\n1\t33.48130266853933\t25769804280\n1\t33.48130266853933\t25769804281\n1\t33.48130266853933\t25769804282\n1\t33.48130266853933\t25769804283\n1\t33.48130266853933\t25769804284\n1\t33.48130266853933\t25769804285\n1\t33.48130266853933\t25769804286\n1\t33.48130266853933\t25769804287\n1\t33.48130266853933\t25769804288\n1\t33.48130266853933\t25769804289\n1\t33.48130266853933\t25769804290\n1\t33.48130266853933\t25769804291\n1\t33.48130266853933\t25769804292\n1\t33.48130266853933\t25769804293\n1\t33.48130266853933\t25769804294\n1\t33.48130266853933\t25769804295\n1\t33.48130266853933\t25769804296\n1\t33.48130266853933\t25769804297\n1\t33.48130266853933\t25769804298\n1\t33.48130266853933\t25769804299\n1\t33.48130266853933\t25769804300\n1\t33.48130266853933\t25769804301\n1\t33.48130266853933\t25769804302\n1\t33.48130266853933\t25769804303\n1\t33.48130266853933\t25769804304\n1\t33.48130266853933\t25769804305\n1\t33.48130266853933\t25769804306\n1\t33.48130266853933\t25769804307\n1\t19.55236921698219\t25769804308\n1\t19.55236921698219\t25769804309\n1\t19.55236921698219\t25769804310\n1\t19.55236921698219\t25769804311\n1\t19.55236921698219\t25769804312\n1\t19.55236921698219\t25769804313\n1\t19.55236921698219\t25769804314\n1\t19.55236921698219\t25769804315\n1\t19.55236921698219\t25769804316\n1\t19.55236921698219\t25769804317\n1\t19.55236921698219\t25769804318\n1\t19.55236921698219\t25769804319\n1\t19.55236921698219\t25769804320\n1\t19.55236921698219\t25769804321\n1\t19.55236921698219\t25769804322\n1\t19.55236921698219\t25769804323\n1\t19.55236921698219\t25769804324\n1\t19.55236921698219\t25769804325\n1\t19.55236921698219\t25769804326\n1\t19.55236921698219\t25769804327\n1\t19.55236921698219\t25769804328\n1\t19.55236921698219\t25769804329\n1\t19.55236921698219\t25769804330\n1\t19.55236921698219\t25769804331\n1\t19.55236921698219\t25769804332\n1\t19.55236921698219\t25769804333\n1\t33.48130266853933\t25769804334\n1\t33.48130266853933\t25769804335\n1\t33.48130266853933\t25769804336\n1\t33.48130266853933\t25769804337\n1\t33.48130266853933\t25769804338\n1\t33.48130266853933\t25769804339\n1\t33.48130266853933\t25769804340\n1\t33.48130266853933\t25769804341\n1\t33.48130266853933\t25769804342\n1\t33.48130266853933\t25769804343\n1\t33.48130266853933\t25769804344\n1\t19.55236921698219\t25769804345\n1\t19.55236921698219\t25769804346\n1\t19.55236921698219\t25769804347\n1\t19.55236921698219\t25769804348\n1\t19.55236921698219\t25769804349\n1\t19.55236921698219\t25769804350\n1\t19.55236921698219\t25769804351\n1\t19.55236921698219\t25769804352\n1\t19.55236921698219\t25769804353\n1\t19.55236921698219\t25769804354\n1\t19.55236921698219\t25769804355\n1\t19.55236921698219\t25769804356\n1\t19.55236921698219\t25769804357\n1\t19.55236921698219\t25769804358\n1\t19.55236921698219\t25769804359\n1\t19.55236921698219\t25769804360\n1\t19.55236921698219\t25769804361\n1\t19.55236921698219\t25769804362\n1\t19.55236921698219\t25769804363\n1\t19.55236921698219\t25769804364\n1\t19.55236921698219\t25769804365\n1\t19.55236921698219\t25769804366\n1\t19.55236921698219\t25769804367\n1\t19.55236921698219\t25769804368\n1\t19.55236921698219\t25769804369\n1\t19.55236921698219\t25769804370\n1\t19.55236921698219\t25769804371\n1\t19.55236921698219\t25769804372\n1\t19.55236921698219\t25769804373\n1\t19.55236921698219\t25769804374\n1\t19.55236921698219\t25769804375\n1\t19.55236921698219\t25769804376\n1\t19.55236921698219\t25769804377\n1\t19.55236921698219\t25769804378\n1\t19.55236921698219\t25769804379\n1\t19.55236921698219\t25769804380\n1\t19.55236921698219\t25769804381\n1\t19.55236921698219\t25769804382\n1\t19.55236921698219\t25769804383\n1\t19.55236921698219\t25769804384\n1\t19.55236921698219\t25769804385\n1\t19.55236921698219\t25769804386\n1\t19.55236921698219\t25769804387\n1\t19.55236921698219\t25769804388\n1\t19.55236921698219\t25769804389\n1\t19.55236921698219\t25769804390\n1\t19.55236921698219\t25769804391\n1\t19.55236921698219\t25769804392\n1\t19.55236921698219\t25769804393\n1\t19.55236921698219\t25769804394\n1\t19.55236921698219\t25769804395\n1\t19.55236921698219\t25769804396\n1\t19.55236921698219\t25769804397\n1\t19.55236921698219\t25769804398\n1\t19.55236921698219\t25769804399\n1\t19.55236921698219\t25769804400\n1\t19.55236921698219\t25769804401\n1\t19.55236921698219\t25769804402\n1\t19.55236921698219\t25769804403\n1\t19.55236921698219\t25769804404\n1\t19.55236921698219\t25769804405\n1\t19.55236921698219\t25769804406\n1\t19.55236921698219\t25769804407\n1\t19.55236921698219\t25769804408\n1\t19.55236921698219\t25769804409\n1\t19.55236921698219\t25769804410\n1\t19.55236921698219\t25769804411\n1\t33.48130266853933\t25769804412\n1\t19.55236921698219\t25769804413\n1\t176.12694993314514\t25769804414\n1\t176.12694993314514\t25769804415\n1\t33.48130266853933\t25769804416\n1\t33.48130266853933\t25769804417\n1\t33.48130266853933\t25769804418\n1\t33.48130266853933\t25769804419\n1\t176.12694993314514\t25769804420\n1\t33.48130266853933\t25769804421\n1\t33.48130266853933\t25769804422\n1\t33.48130266853933\t25769804423\n1\t33.48130266853933\t25769804424\n1\t33.48130266853933\t25769804425\n1\t33.48130266853933\t25769804426\n1\t33.48130266853933\t25769804427\n1\t33.48130266853933\t25769804428\n1\t33.48130266853933\t25769804429\n1\t33.48130266853933\t25769804430\n1\t33.48130266853933\t25769804431\n1\t33.48130266853933\t25769804432\n1\t33.48130266853933\t25769804433\n1\t33.48130266853933\t25769804434\n1\t33.48130266853933\t25769804435\n1\t33.48130266853933\t25769804436\n1\t33.48130266853933\t25769804437\n1\t33.48130266853933\t25769804438\n1\t33.48130266853933\t25769804439\n1\t33.48130266853933\t25769804440\n1\t33.48130266853933\t25769804441\n1\t33.48130266853933\t25769804442\n1\t33.48130266853933\t25769804443\n1\t33.48130266853933\t25769804444\n1\t176.12694993314514\t25769804445\n1\t176.12694993314514\t25769804446\n1\t19.55236921698219\t25769804447\n1\t19.55236921698219\t25769804448\n1\t19.55236921698219\t25769804449\n1\t19.55236921698219\t25769804450\n1\t19.55236921698219\t25769804451\n1\t19.55236921698219\t25769804452\n1\t19.55236921698219\t25769804453\n1\t19.55236921698219\t25769804454\n1\t120.22741088698535\t25769804455\n1\t176.12694993314514\t25769804456\n1\t176.12694993314514\t25769804457\n1\t19.55236921698219\t25769804458\n1\t33.48130266853933\t25769804459\n1\t33.48130266853933\t25769804460\n1\t33.48130266853933\t25769804461\n1\t176.12694993314514\t25769804462\n1\t176.12694993314514\t25769804463\n1\t19.55236921698219\t25769804464\n1\t19.55236921698219\t25769804465\n1\t33.48130266853933\t25769804466\n1\t33.48130266853933\t25769804467\n1\t19.55236921698219\t25769804468\n1\t19.55236921698219\t25769804469\n1\t19.55236921698219\t25769804470\n1\t19.55236921698219\t25769804471\n1\t19.55236921698219\t25769804472\n1\t33.48130266853933\t25769804473\n1\t33.48130266853933\t25769804474\n1\t33.48130266853933\t25769804475\n1\t33.48130266853933\t25769804476\n1\t33.48130266853933\t25769804477\n1\t33.48130266853933\t25769804478\n1\t33.48130266853933\t25769804479\n1\t33.48130266853933\t25769804480\n1\t33.48130266853933\t25769804481\n1\t33.48130266853933\t25769804482\n1\t33.48130266853933\t25769804483\n1\t33.48130266853933\t25769804484\n1\t33.48130266853933\t25769804485\n1\t33.48130266853933\t25769804486\n1\t33.48130266853933\t25769804487\n1\t33.48130266853933\t25769804488\n1\t33.48130266853933\t25769804489\n1\t33.48130266853933\t25769804490\n1\t33.48130266853933\t25769804491\n1\t33.48130266853933\t25769804492\n1\t33.48130266853933\t25769804493\n1\t33.48130266853933\t25769804494\n1\t33.48130266853933\t25769804495\n1\t33.48130266853933\t25769804496\n1\t33.48130266853933\t25769804497\n1\t33.48130266853933\t25769804498\n1\t33.48130266853933\t25769804499\n1\t33.48130266853933\t25769804500\n1\t33.48130266853933\t25769804501\n1\t176.12694993314514\t25769804502\n1\t33.48130266853933\t25769804503\n1\t33.48130266853933\t25769804504\n1\t33.48130266853933\t25769804505\n1\t33.48130266853933\t25769804506\n1\t33.48130266853933\t25769804507\n1\t33.48130266853933\t25769804508\n1\t33.48130266853933\t25769804509\n1\t33.48130266853933\t25769804510\n1\t33.48130266853933\t25769804511\n1\t33.48130266853933\t25769804512\n1\t33.48130266853933\t25769804513\n1\t176.12694993314514\t25769804514\n1\t176.12694993314514\t25769804515\n1\t19.55236921698219\t25769804516\n1\t19.55236921698219\t25769804517\n1\t176.12694993314514\t25769804518\n1\t33.48130266853933\t25769804519\n1\t33.48130266853933\t25769804520\n1\t176.12694993314514\t25769804521\n1\t33.48130266853933\t25769804522\n1\t176.12694993314514\t25769804523\n1\t33.48130266853933\t25769804524\n1\t33.48130266853933\t25769804525\n1\t176.12694993314514\t25769804526\n1\t33.48130266853933\t25769804527\n1\t176.12694993314514\t25769804528\n1\t176.12694993314514\t25769804529\n1\t176.12694993314514\t25769804530\n1\t176.12694993314514\t25769804531\n1\t33.48130266853933\t25769804532\n1\t33.48130266853933\t25769804533\n1\t33.48130266853933\t25769804534\n1\t33.48130266853933\t25769804535\n1\t33.48130266853933\t25769804536\n1\t33.48130266853933\t25769804537\n1\t33.48130266853933\t25769804538\n1\t33.48130266853933\t25769804539\n1\t33.48130266853933\t25769804540\n1\t33.48130266853933\t25769804541\n1\t33.48130266853933\t25769804542\n1\t33.48130266853933\t25769804543\n1\t33.48130266853933\t25769804544\n1\t33.48130266853933\t25769804545\n1\t33.48130266853933\t25769804546\n1\t33.48130266853933\t25769804547\n1\t33.48130266853933\t25769804548\n1\t33.48130266853933\t25769804549\n1\t33.48130266853933\t25769804550\n1\t33.48130266853933\t25769804551\n1\t33.48130266853933\t25769804552\n1\t33.48130266853933\t25769804553\n1\t33.48130266853933\t25769804554\n1\t33.48130266853933\t25769804555\n1\t33.48130266853933\t25769804556\n1\t33.48130266853933\t25769804557\n1\t33.48130266853933\t25769804558\n1\t33.48130266853933\t25769804559\n1\t33.48130266853933\t25769804560\n1\t33.48130266853933\t25769804561\n1\t176.12694993314514\t25769804562\n1\t19.55236921698219\t25769804563\n1\t33.48130266853933\t25769804564\n1\t33.48130266853933\t25769804565\n1\t33.48130266853933\t25769804566\n1\t33.48130266853933\t25769804567\n1\t33.48130266853933\t25769804568\n1\t19.55236921698219\t25769804569\n1\t33.48130266853933\t25769804570\n1\t33.48130266853933\t25769804571\n1\t33.48130266853933\t25769804572\n1\t33.48130266853933\t25769804573\n1\t33.48130266853933\t25769804574\n1\t33.48130266853933\t25769804575\n1\t33.48130266853933\t25769804576\n1\t33.48130266853933\t25769804577\n1\t33.48130266853933\t25769804578\n1\t33.48130266853933\t25769804579\n1\t33.48130266853933\t25769804580\n1\t33.48130266853933\t25769804581\n1\t33.48130266853933\t25769804582\n1\t33.48130266853933\t25769804583\n1\t33.48130266853933\t25769804584\n1\t33.48130266853933\t25769804585\n1\t33.48130266853933\t25769804586\n1\t33.48130266853933\t25769804587\n1\t33.48130266853933\t25769804588\n1\t33.48130266853933\t25769804589\n1\t33.48130266853933\t25769804590\n1\t33.48130266853933\t25769804591\n1\t33.48130266853933\t25769804592\n1\t33.48130266853933\t25769804593\n1\t33.48130266853933\t25769804594\n1\t33.48130266853933\t25769804595\n1\t33.48130266853933\t25769804596\n1\t33.48130266853933\t25769804597\n1\t33.48130266853933\t25769804598\n1\t33.48130266853933\t25769804599\n1\t33.48130266853933\t25769804600\n1\t33.48130266853933\t25769804601\n1\t33.48130266853933\t25769804602\n1\t176.12694993314514\t25769804603\n1\t176.12694993314514\t25769804604\n1\t176.12694993314514\t25769804605\n1\t176.12694993314514\t25769804606\n1\t176.12694993314514\t25769804607\n1\t176.12694993314514\t25769804608\n1\t176.12694993314514\t25769804609\n1\t176.12694993314514\t25769804610\n1\t176.12694993314514\t25769804611\n1\t176.12694993314514\t25769804612\n1\t176.12694993314514\t25769804613\n1\t176.12694993314514\t25769804614\n1\t176.12694993314514\t25769804615\n1\t176.12694993314514\t25769804616\n1\t33.48130266853933\t25769804617\n1\t33.48130266853933\t25769804618\n1\t19.55236921698219\t25769804619\n1\t33.48130266853933\t25769804620\n1\t33.48130266853933\t25769804621\n1\t33.48130266853933\t25769804622\n1\t33.48130266853933\t25769804623\n1\t33.48130266853933\t25769804624\n1\t176.12694993314514\t25769804625\n1\t33.48130266853933\t25769804626\n1\t19.55236921698219\t25769804627\n1\t19.55236921698219\t25769804628\n1\t19.55236921698219\t25769804629\n1\t33.48130266853933\t25769804630\n1\t33.48130266853933\t25769804631\n1\t33.48130266853933\t25769804632\n1\t33.48130266853933\t25769804633\n1\t176.12694993314514\t25769804634\n1\t19.55236921698219\t25769804635\n1\t19.55236921698219\t25769804636\n1\t33.48130266853933\t25769804637\n1\t33.48130266853933\t25769804638\n1\t33.48130266853933\t25769804639\n1\t33.48130266853933\t25769804640\n1\t33.48130266853933\t25769804641\n1\t33.48130266853933\t25769804642\n1\t33.48130266853933\t25769804643\n1\t33.48130266853933\t25769804644\n1\t33.48130266853933\t25769804645\n1\t33.48130266853933\t25769804646\n1\t33.48130266853933\t25769804647\n1\t120.22741088698535\t25769804648\n1\t120.22741088698535\t25769804649\n1\t33.48130266853933\t25769804650\n1\t33.48130266853933\t25769804651\n1\t33.48130266853933\t25769804652\n1\t33.48130266853933\t25769804653\n1\t33.48130266853933\t25769804654\n1\t33.48130266853933\t25769804655\n1\t33.48130266853933\t25769804656\n1\t33.48130266853933\t25769804657\n1\t33.48130266853933\t25769804658\n1\t33.48130266853933\t25769804659\n1\t33.48130266853933\t25769804660\n1\t33.48130266853933\t25769804661\n1\t33.48130266853933\t25769804662\n1\t176.12694993314514\t25769804663\n1\t176.12694993314514\t25769804664\n1\t120.22741088698535\t25769804665\n1\t33.48130266853933\t25769804666\n1\t33.48130266853933\t25769804667\n1\t33.48130266853933\t25769804668\n1\t176.12694993314514\t25769804669\n1\t176.12694993314514\t25769804670\n1\t176.12694993314514\t25769804671\n1\t33.48130266853933\t25769804672\n1\t33.48130266853933\t25769804673\n1\t33.48130266853933\t25769804674\n1\t33.48130266853933\t25769804675\n1\t33.48130266853933\t25769804676\n1\t33.48130266853933\t25769804677\n1\t33.48130266853933\t25769804678\n1\t33.48130266853933\t25769804679\n1\t19.55236921698219\t25769804680\n1\t19.55236921698219\t25769804681\n1\t19.55236921698219\t25769804682\n1\t19.55236921698219\t25769804683\n1\t19.55236921698219\t25769804684\n1\t19.55236921698219\t25769804685\n1\t19.55236921698219\t25769804686\n1\t19.55236921698219\t25769804687\n1\t19.55236921698219\t25769804688\n1\t19.55236921698219\t25769804689\n1\t19.55236921698219\t25769804690\n1\t176.12694993314514\t25769804691\n1\t33.48130266853933\t25769804692\n1\t176.12694993314514\t25769804693\n1\t176.12694993314514\t25769804694\n1\t33.48130266853933\t25769804695\n1\t33.48130266853933\t25769804696\n1\t33.48130266853933\t25769804697\n1\t33.48130266853933\t25769804698\n1\t33.48130266853933\t25769804699\n1\t33.48130266853933\t25769804700\n1\t33.48130266853933\t25769804701\n1\t33.48130266853933\t25769804702\n1\t33.48130266853933\t25769804703\n1\t33.48130266853933\t25769804704\n1\t33.48130266853933\t25769804705\n1\t33.48130266853933\t25769804706\n1\t33.48130266853933\t25769804707\n1\t120.22741088698535\t25769804708\n1\t120.22741088698535\t25769804709\n1\t33.48130266853933\t25769804710\n1\t33.48130266853933\t25769804711\n1\t33.48130266853933\t25769804712\n1\t33.48130266853933\t25769804713\n1\t33.48130266853933\t25769804714\n1\t33.48130266853933\t25769804715\n1\t33.48130266853933\t25769804716\n1\t33.48130266853933\t25769804717\n1\t33.48130266853933\t25769804718\n1\t33.48130266853933\t25769804719\n1\t33.48130266853933\t25769804720\n1\t33.48130266853933\t25769804721\n1\t33.48130266853933\t25769804722\n1\t33.48130266853933\t25769804723\n1\t33.48130266853933\t25769804724\n1\t33.48130266853933\t25769804725\n1\t33.48130266853933\t25769804726\n1\t33.48130266853933\t25769804727\n1\t33.48130266853933\t25769804728\n1\t33.48130266853933\t25769804729\n1\t33.48130266853933\t25769804730\n1\t33.48130266853933\t25769804731\n1\t33.48130266853933\t25769804732\n1\t33.48130266853933\t25769804733\n1\t33.48130266853933\t25769804734\n1\t33.48130266853933\t25769804735\n1\t33.48130266853933\t25769804736\n1\t33.48130266853933\t25769804737\n1\t33.48130266853933\t25769804738\n1\t33.48130266853933\t25769804739\n1\t33.48130266853933\t25769804740\n1\t33.48130266853933\t25769804741\n1\t33.48130266853933\t25769804742\n1\t33.48130266853933\t25769804743\n1\t33.48130266853933\t25769804744\n1\t33.48130266853933\t25769804745\n1\t33.48130266853933\t25769804746\n1\t33.48130266853933\t25769804747\n1\t33.48130266853933\t25769804748\n1\t33.48130266853933\t25769804749\n1\t33.48130266853933\t25769804750\n1\t33.48130266853933\t25769804751\n1\t33.48130266853933\t25769804752\n1\t33.48130266853933\t25769804753\n1\t33.48130266853933\t25769804754\n1\t33.48130266853933\t25769804755\n1\t33.48130266853933\t25769804756\n1\t33.48130266853933\t25769804757\n1\t33.48130266853933\t25769804758\n1\t33.48130266853933\t25769804759\n1\t33.48130266853933\t25769804760\n1\t33.48130266853933\t25769804761\n1\t33.48130266853933\t25769804762\n1\t33.48130266853933\t25769804763\n1\t33.48130266853933\t25769804764\n1\t33.48130266853933\t25769804765\n1\t33.48130266853933\t25769804766\n1\t33.48130266853933\t25769804767\n1\t33.48130266853933\t25769804768\n1\t33.48130266853933\t25769804769\n1\t33.48130266853933\t25769804770\n1\t33.48130266853933\t25769804771\n1\t33.48130266853933\t25769804772\n1\t33.48130266853933\t25769804773\n1\t33.48130266853933\t25769804774\n1\t33.48130266853933\t25769804775\n"
+          },
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"result-alert alert-warning\" role\u003d\"alert\"\u003e\u003cbutton type\u003d\"button\" class\u003d\"close\" data-dismiss\u003d\"alert\" aria-label\u003d\"Close\"\u003e\u003cspan aria-hidden\u003d\"true\"\u003e\u0026times;\u003c/span\u003e\u003c/button\u003e\u003cstrong\u003eOutput is truncated\u003c/strong\u003e to 1000 rows. Learn more about \u003cstrong\u003ezeppelin.spark.maxResult\u003c/strong\u003e\u003c/div\u003e\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d17"
+            },
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d18"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654807833265_1514396257",
+      "id": "paragraph_1654807833265_1514396257",
+      "dateCreated": "2022-06-09 22:50:33.266",
+      "dateStarted": "2022-06-09 22:50:49.088",
+      "dateFinished": "2022-06-09 22:50:49.890",
+      "status": "FINISHED"
+    },
+    {
+      "title": "EVALUATION",
+      "text": "import org.apache.spark.ml.evaluation.RegressionEvaluator\nval evaluator \u003d new RegressionEvaluator()\n  .setLabelCol(\"score\")\n  .setPredictionCol(\"prediction\")\n  .setMetricName(\"rmse\")\nval rmse \u003d evaluator.evaluate(predictions)\nprintln(s\"Root Mean Squared Error (RMSE) on test data \u003d $rmse\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-06-09 22:56:13.382",
+      "progress": 30,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Root Mean Squared Error (RMSE) on test data \u003d 296.6007364644737\nimport org.apache.spark.ml.evaluation.RegressionEvaluator\n\u001b[1m\u001b[34mevaluator\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.evaluation.RegressionEvaluator\u001b[0m \u003d RegressionEvaluator: uid\u003dregEval_6d50556a9974, metricName\u003drmse, throughOrigin\u003dfalse\n\u001b[1m\u001b[34mrmse\u001b[0m: \u001b[1m\u001b[32mDouble\u001b[0m \u003d 296.6007364644737\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.201.0.118:4040/jobs/job?id\u003d19"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654807849087_1003433348",
+      "id": "paragraph_1654807849087_1003433348",
+      "dateCreated": "2022-06-09 22:50:49.087",
+      "dateStarted": "2022-06-09 22:55:29.518",
+      "dateFinished": "2022-06-09 22:55:32.189",
+      "status": "FINISHED"
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1654808129516_1774472474",
+      "id": "paragraph_1654808129516_1774472474",
+      "dateCreated": "2022-06-09 22:55:29.516",
+      "status": "READY"
+    }
+  ],
+  "name": "reddit_score_training",
+  "id": "2H6BSP4SD",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}

@@ -1,0 +1,7 @@
+BTC_nodes/
+*.csv
+*.txt
+*.parquet
+*.gzip
+.~lock*
+Dataset/
